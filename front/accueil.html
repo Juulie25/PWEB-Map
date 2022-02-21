@@ -14,15 +14,21 @@
         <link rel="stylesheet" href="./css/accueil.css">
     </head>
     <body onload="init()">
-        <nav class="navbar navbar-default">
-            <ul class="nav navbar-nav">
-              <li><a href="leaderboard.html" class="navbar-text">Leaderboard</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" class="navbar-text">Inscription</a></li>
-                <li><a href="" class="navbar-text">Connexion</a></li>
-            </ul>
-        </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse justify-content-right" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" aria-current="page" href="#">Leaderboard</a>
+                    </div>
+                </div>
+              <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link" aria-current="page" href="#">Inscription</a>
+                  <a class="nav-link" aria-current="page" href="#">Connexion</a>
+                </div>
+              </div>
+            </div>
+          </nav>
         <div id="mapDiv"></div>
         <div id="play">
             <p id="ques"></p>
