@@ -1,5 +1,7 @@
 let marqueur; 
 let inGame = false;
+let listCountry;
+let randomElement;
 
 function init(){
     map = L.map('mapDiv').setView([42.607752 , -13.542906],2);
@@ -15,13 +17,22 @@ function btnPlay() {
     document.getElementById("nvlPartie").innerText = "Recommencer une partie"
 
     document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte "+ getCountryName()
-    let data;
-    $.getJSON("http://localhost/chezmoi/countries-FR.json", function(result) {
-        console.log(result)
-    });
-    console.log(data)
+    
+    //console.log(listCountry)
 }
 
 function getCountryName() {
+    return getCountryAll()
 
+}
+
+function getCountryAll() {
+    $.getJSON("http://localhost/chezmoi/countries-FR.json", function(result) {
+        listCountry = result
+        
+        randomElement = listCountry[Math.floor(Math.random() * listCountry.length)];
+
+        
+    });
+    return randomElement.name
 }
