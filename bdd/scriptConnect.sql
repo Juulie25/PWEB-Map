@@ -47,7 +47,22 @@ DELIMITER $$
 CREATE OR REPLACE TRIGGER T_AjoutStats
 BEFORE INSERT ON partie
 FOR EACH ROW 
+DECLARE 
+joueurID int;
+joueurScore int; 
+joueurNnParties int; 
+CURSOR cJoueur IS SELECT IdJoueur FROM joueur; 
+
 BEGIN
-INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES ();
+FOR tupleStats IN cStats LOOP 
+    IF tupleStats.IdJoueur == NEW.IdJoueur THEN 
+        joueurID = tupleStats.IdJoueur;
+    END IF; 
+END LOOP; 
+
+SELECT p.IdJoueur, p.score, COUNT(s.nbParties) INTO joueurID, joueurScore , joueurNnParties FROM partie p, stats s WHERE p.IdJoueur = s.IdJoueur
+IF joueurScore > NEW.score THEN 
+    INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES (joueurID, joueurScore , joueurNnParties +1);
+END IF; 
 END; 
 $$
