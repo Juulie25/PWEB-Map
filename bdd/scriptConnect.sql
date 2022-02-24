@@ -26,7 +26,7 @@ CREATE TABLE stats (
 ALTER TABLE partie 
 ADD CONSTRAINT FK_Partie FOREIGN KEY(IdJoueur) REFERENCES joueur(IdJoueur); 
 
-ALTER TABLE 
+ALTER TABLE partie
 ADD CONSTRAINT CK_Score CHECK (score > 0); 
 
 ALTER TABLE stats
@@ -47,18 +47,24 @@ DELIMITER $$
 CREATE OR REPLACE TRIGGER T_AjoutStats
 BEFORE INSERT ON partie
 FOR EACH ROW 
-DECLARE 
-joueurID int;
-joueurScore int; 
-joueurNnParties int; 
-CURSOR cJoueur IS SELECT IdJoueur FROM joueur; 
-
 BEGIN
-FOR tupleStats IN cStats LOOP 
-    IF tupleStats.IdJoueur == NEW.IdJoueur THEN 
+DECLARE done INT DEFAULT 0;
+DECLARE joueurID int;
+DECLARE joueurScore int; 
+DECLARE joueurNnParties int; 
+DECLARE cJoueur CURSOR FOR SELECT IdJoueur FROM joueur;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+OPEN cJoueur;
+label: LOOP
+FETCH cJoueur INTO joueurID;
+IF cJoueur == NEW.IdJoueur THEN 
         joueurID = tupleStats.IdJoueur;
-    END IF; 
-END LOOP; 
+END IF; 
+IF done = 1 THEN LEAVE label;
+END IF;
+END LOOP;
+CLOSE cJoueur;
 
 SELECT p.IdJoueur, p.score, COUNT(s.nbParties) INTO joueurID, joueurScore , joueurNnParties FROM partie p, stats s WHERE p.IdJoueur = s.IdJoueur
 IF joueurScore > NEW.score THEN 
