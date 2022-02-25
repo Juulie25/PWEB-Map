@@ -8,7 +8,6 @@ function init(){
     map = L.map('mapDiv').setView([42.607752 , -13.542906],2);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{ maxZoom: 15 }).addTo(map);
     map.doubleClickZoom.disable();
-    map.on('click', onMapClick);
     let doc =  document.getElementById("nvlPartie");
     doc.addEventListener("click", btnPlay);
 }
@@ -27,7 +26,7 @@ function btnPlay() {
     document.getElementById("nvlPartie").innerText = "Recommencer une partie"
 
     document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte "+ getCountryName()
-    
+    map.on('click', onMapClick);
     //console.log(listCountry)
 }
 
