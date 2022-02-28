@@ -24,15 +24,10 @@ function onMapClick(e) {
 function btnPlay() {
     inGame = true
     document.getElementById("nvlPartie").innerText = "Recommencer une partie"
+    document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte "+ getCountryAll()
 
-    document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte "+ getCountryName()
     map.on('click', onMapClick);
     //console.log(listCountry)
-}
-
-function getCountryName() {
-    return getCountryAll()
-
 }
 
 function getCountryAll() {
