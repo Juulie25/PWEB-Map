@@ -3,7 +3,7 @@
 function PDO()
 {
     $hostname = "localhost";
-    $dbname = "location_voitures";
+    $dbname = "map";
     $user = "root";
     $pass = "";
 

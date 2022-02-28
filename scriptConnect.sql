@@ -42,20 +42,3 @@ INSERT INTO partie(IdJoueur, score) VALUES (2, 16);
 INSERT INTO partie(IdJoueur, score) VALUES (3, 22); 
 INSERT INTO partie(IdJoueur, score) VALUES (2, 25); 
 INSERT INTO partie(IdJoueur, score) VALUES (1, 20); 
-
-DELIMITER $$
-CREATE OR REPLACE TRIGGER T_AjoutStats
-BEFORE INSERT ON partie
-FOR EACH ROW 
-BEGIN
-DECLARE joueurID int;
-DECLARE joueurScore int; 
-DECLARE joueurNnParties int; 
-SELECT p.score, COUNT(s.nbParties) INTO joueurScore , joueurNnParties FROM partie p, stats s WHERE p.IdJoueur = s.IdJoueur AND p.IdJoueur = NEW.IdJoueur;
-IF joueurScore > NEW.score THEN 
-    INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES (NEW.IdJoueur, joueurScore , joueurNnParties +1);
-END IF; 
-END; 
-$$
-
-INSERT INTO partie(IdJoueur, score) VALUES (1, 30); 
