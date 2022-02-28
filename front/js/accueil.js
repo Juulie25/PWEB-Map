@@ -31,12 +31,15 @@ function btnPlay() {
 }
 
 function getCountryAll() {
-    $.getJSON("http://localhost/chezmoi/countries-FR.json", function(result) {
-        listCountry = result
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/chezmoi/countries-FR.json",
+        async: false,
+        success : function(result) {
+            listCountry = result
         
         randomElement = listCountry[Math.floor(Math.random() * listCountry.length)];
-
-        
+        }
     });
     return randomElement.name
 }
