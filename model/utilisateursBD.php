@@ -16,7 +16,7 @@ function getJoueur($nom, $motdepasse, &$attributs = array())
 
         if ($exec) {
             $attributs = $cmd->fetchAll(PDO::FETCH_ASSOC);
-            return $attributs;
+            return count($attributs) > 0;
         }
         return false;
     } catch (PDOException $e) {
@@ -46,7 +46,7 @@ function ajouterJoueur($nomJoueur, $MotDePasse)
 }
 
 
-function getJoueursSats(&$joueurs){
+function getJoueursStats(&$joueurs = array()){
 
     require_once "./model/connectBD.php";
     $pdo = PDO();
