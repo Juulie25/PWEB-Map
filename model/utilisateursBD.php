@@ -2,7 +2,6 @@
 
 function verif_LoginBD($pseudo,$mdp,&$profil) {
     require('./model/connectBD.php');
-    $pdo = PDO();
     $sql = "SELECT * FROM joueur WHERE nomJoueur = :pseudo AND MotDePasse = :mdp";
     try{
         $commande = $pdo->prepare($sql);
@@ -21,6 +20,7 @@ function verif_LoginBD($pseudo,$mdp,&$profil) {
         echo utf8_encode("Echec de select : " . $e->getMessage() . "\n");
         die(); // On arrête tout.
     }
+
     if (count($resultat) == 0) {
         $profil=array(); // Pour qu'il y ait quand même quelque chose...
         return false; 
@@ -31,6 +31,21 @@ function verif_LoginBD($pseudo,$mdp,&$profil) {
         return true;
     }
 }
+
+function inscription($nvSpeudo, $nvMdp){
+    require("./model/connectBD.php");
+    $sql = "INSERT INTO joueur(nomJoueur, MotDePasse) VALUES(:pseudo, :mdp)";
+     try {
+        $commande = $pdo->prepare($sql);
+        $commande->bindParam(':pseudo', $nvSpeudo);
+        $commande->bindParam(':mdp', $nvMdp);
+        $bool = $commande->execute();
+    } catch (PDOException $e){
+            echo utf8_encode("Echec insert into : " . $e->getMessage() . "\n") ;
+            die();
+    }
+}
+
 
 
 

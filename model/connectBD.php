@@ -1,15 +1,15 @@
 <?php
+    $hostname = "localhost";	//ou localhost
+	$base= "map";
+	$loginBD= "root";	//ou "root"
+	$passBD="root";
+	//$pdo = null;
 
-function PDO()
-{
-    $hostname = "localhost";
-    $dbname = "map";
-    $user = "root";
-    $pass = "root";
+try {
 
-    try {
-        return new PDO("mysql:server=$hostname; dbname=$dbname", $user, $pass);
-    } catch (PDOException $e) {
-        die("Echec de connexion : " . utf8_encode($e->getMessage()) . "\n");
-    }
+	$pdo = new PDO ("mysql:server=$hostname; dbname=$base", "$loginBD", "$passBD");
+}
+
+catch (PDOException $e) {
+	die  ("Echec de connexion : " . $e->getMessage() . "\n");
 }

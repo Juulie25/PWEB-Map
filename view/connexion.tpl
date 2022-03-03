@@ -11,7 +11,7 @@
   <input type="text" id="password" name="password">
   <input type="submit" value="Valider">
 </form>
-<div id="msg"><?php $msg=isset($msg)?trim($msg):''; echo $msg; ?></div>
+<div id="msg"><?php echo $_SESSION['messageErr']; $_SESSION['messageErr'] = '' ?></div>
 
 </body>
 </html>
