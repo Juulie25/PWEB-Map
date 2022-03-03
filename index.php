@@ -7,7 +7,7 @@ if (isset($_GET["controle"], $_GET["action"])) {
     $action = $_GET["action"];
 } else {
     $controle = "utilisateur";
-    $action = "connexion";
+    $action = "affichage";
 }
 
 require_once "./controller/$controle.php";

@@ -5,7 +5,7 @@ function PDO()
     $hostname = "localhost";
     $dbname = "map";
     $user = "root";
-    $pass = "";
+    $pass = "root";
 
     try {
         return new PDO("mysql:server=$hostname; dbname=$dbname", $user, $pass);

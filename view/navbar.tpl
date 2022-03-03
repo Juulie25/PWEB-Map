@@ -8,9 +8,9 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <?php
-                if (!isset($_SESSION["joueur"])) {
+                if (!isset($_SESSION["profil"])) {
                     echo '<a class="nav-link" aria-current="page" href="index.php?controle=utilisateur&action=inscription">Inscription</a>';
-                    echo'<a class="nav-link" aria-current="page" href="index.php?controle=utilisateur&action=connexion">Connexion</a>';
+                    echo'<a class="nav-link" aria-current="page" href="index.php?controle=utilisateur&action=affichage">Connexion</a>';
                 }
                 else{
                     echo '<a class="nav-link" aria-current="page" href="index.php?controle=utilisateur&action=deconnexion">Déconnexion</a>';

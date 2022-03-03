@@ -1,29 +1,81 @@
 <?php
 
-function getJoueur($nom, $motdepasse, &$attributs = array())
-{
-    require_once "./model/connectBD.php";
+function verif_LoginBD($pseudo,$mdp,&$profil) {
+    require('./model/connectBD.php');
     $pdo = PDO();
-
-    $sql = "SELECT * FROM joueur WHERE nomJoueur = :nom AND MotDePasse = :motdepasse";
-
-    try {
-        $cmd = $pdo->prepare($sql);
-        $cmd->bindParam(":nomJoueur", $nom);
-        $cmd->bindParam(":MotDePasse", $motdepasse);
-
-        $exec = $cmd->execute();
-
-        if ($exec) {
-            $attributs = $cmd->fetchAll(PDO::FETCH_ASSOC);
-            return count($attributs) > 0;
+    $sql = "SELECT * FROM joueur WHERE nomJoueur = :pseudo AND MotDePasse = :mdp";
+    try{
+        $commande = $pdo->prepare($sql);
+        $commande->bindParam(':pseudo', $pseudo);
+		$commande->bindParam(':mdp', $mdp);
+        $bool = $commande->execute();
+        if ($bool) {
+            $resultat = $commande->fetchAll(PDO::FETCH_ASSOC); //tableau d'enregistrements
+            
+            /*while ($ligne = $commande->fetch()) { // ligne par ligne
+                print_r($ligne);
+            }*/
         }
-        return false;
-    } catch (PDOException $e) {
-        echo utf8_encode("Erreur lors de la récupération : " . $e->getMessage() . "\n");
-        die();
+    }
+    catch (PDOException $e) {
+        echo utf8_encode("Echec de select : " . $e->getMessage() . "\n");
+        die(); // On arrête tout.
+    }
+    if (count($resultat) == 0) {
+        $profil=array(); // Pour qu'il y ait quand même quelque chose...
+        return false; 
+    }
+    else {
+        $profil = $resultat;
+        //var_dump($profil); die();
+        return true;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function ajouterJoueur($nomJoueur, $MotDePasse)
 {
