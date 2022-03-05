@@ -37,9 +37,12 @@ function getCountryAll() {
         async: false,
         success : function(result) {
             listCountry = result
-        
-        randomElement = listCountry[Math.floor(Math.random() * listCountry.length)];
+            console.log(listCountry)
+        //randomElement = listCountry[Math.floor(Math.random() * listCountry.length)];
+        randomElement = listCountry.length;
+        console.log(randomElement)
         }
     });
     return randomElement
+    
 }
