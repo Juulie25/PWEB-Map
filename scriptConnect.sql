@@ -42,3 +42,7 @@ INSERT INTO partie(IdJoueur, score) VALUES (2, 16);
 INSERT INTO partie(IdJoueur, score) VALUES (3, 22); 
 INSERT INTO partie(IdJoueur, score) VALUES (2, 25); 
 INSERT INTO partie(IdJoueur, score) VALUES (1, 20); 
+
+INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES (1, 20,3);
+INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES (2, 25,2);
+INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES (3, 22,1);
