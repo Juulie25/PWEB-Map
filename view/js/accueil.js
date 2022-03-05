@@ -24,7 +24,7 @@ function onMapClick(e) {
 function btnPlay() {
     inGame = true
     document.getElementById("nvlPartie").innerText = "Recommencer une partie"
-    document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte "
+    document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte " + getCountryAll()
 
     map.on('click', onMapClick);
     //console.log(listCountry)
@@ -33,7 +33,7 @@ function btnPlay() {
 function getCountryAll() {
     $.ajax({
         type: "GET",
-        url: "http://localhost/my-app/Pweb-Map/view/js/countries-FR.json",
+        url: "http://localhost/chezmoi/countries-FR.json",
         async: false,
         success : function(result) {
             listCountry = result
@@ -41,5 +41,5 @@ function getCountryAll() {
         randomElement = listCountry[Math.floor(Math.random() * listCountry.length)];
         }
     });
-    return randomElement.name
+    return randomElement
 }
