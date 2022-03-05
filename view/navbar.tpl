@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse justify-content-right" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" aria-current="page" href="index.php?controle=leaderboard&action=afficherPage">Leaderboard</a>
+                <a class="nav-link" aria-current="page" href="index.php?controle=leaderboard&action=afficherLeaderboard">Leaderboard</a>
             </div>
         </div>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">

@@ -1,5 +1,0 @@
-<?php
-
-function deconnexion(){
-    
-}
