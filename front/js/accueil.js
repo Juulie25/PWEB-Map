@@ -3,6 +3,7 @@ let inGame = false;
 let listCountry;
 let randomElement;
 var popup = L.popup();
+let test;
 
 function init(){
     map = L.map('mapDiv').setView([42.607752 , -13.542906],2);
@@ -41,5 +42,18 @@ function getCountryAll() {
         randomElement = listCountry[Math.floor(Math.random() * listCountry.length)];
         }
     });
+
+    console.log(randomElement.name);
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/PWEB-Map/map/ne_50m_admin_0_countries.geojson",
+        async: false,
+        success : function(result) {
+            listCountry = result;
+            L.geoJSON(listCountry[1]).addTo(map)
+        }
+    });
+    console.log(listCountry.type)
     return randomElement.name
 }
