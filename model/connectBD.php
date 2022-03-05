@@ -2,7 +2,7 @@
     $hostname = "localhost";	//ou localhost
 	$base= "map";
 	$loginBD= "root";	//ou "root"
-	$passBD="root";
+	$passBD="";
 	//$pdo = null;
 
 try {
