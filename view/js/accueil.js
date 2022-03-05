@@ -24,7 +24,7 @@ function onMapClick(e) {
 function btnPlay() {
     inGame = true
     document.getElementById("nvlPartie").innerText = "Recommencer une partie"
-    document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte "+ getCountryAll()
+    document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte " + getCountryAll()
 
     map.on('click', onMapClick);
     //console.log(listCountry)
@@ -41,5 +41,5 @@ function getCountryAll() {
         randomElement = listCountry[Math.floor(Math.random() * listCountry.length)];
         }
     });
-    return randomElement.name
+    return randomElement
 }
