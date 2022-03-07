@@ -34,9 +34,8 @@ function getMeilleurScore(){
 }
 
 //la fonction est appelée quand le joueur perd/fini sa partie 
-function majStats(){
+function majStats($score){
     require("./model/connectBD.php");
-    $score = $_SESSION['profil']['score'];
 
     $res = getMeilleurScore();
     $meilleurScore = $res[0];
