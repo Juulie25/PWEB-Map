@@ -12,3 +12,5 @@
         </div>
     </body>
 </html>
+
+<?php echo $_SESSION['messageErr'] = ''; ?>
