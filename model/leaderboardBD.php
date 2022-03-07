@@ -7,16 +7,12 @@ function getStats(){
         $commande = $pdo->prepare($sql);
         $bool = $commande->execute();
         if ($bool) {
-            return $resultat = $commande->fetchAll(PDO::FETCH_ASSOC); //tableau d'enregistrements
-            
-            /*while ($ligne = $commande->fetch()) { // ligne par ligne
-                print_r($ligne);
-            }*/
+            return $resultat = $commande->fetchAll(PDO::FETCH_ASSOC);
         }
     }
     catch (PDOException $e) {
         echo utf8_encode("Echec de select : " . $e->getMessage() . "\n");
-        die(); // On arrête tout.
+        die();
     }
 }
 
@@ -28,12 +24,12 @@ function getMeilleurScore(){
         $commande = $pdo->prepare($sql);
         $bool = $commande->execute();
         if ($bool) {
-            return $resultat = $commande->fetchAll(PDO::FETCH_ASSOC); //tableau d'enregistrements
+            return $resultat = $commande->fetchAll(PDO::FETCH_ASSOC); 
         }
     }
     catch (PDOException $e) {
         echo utf8_encode("Echec de select : " . $e->getMessage() . "\n");
-        die(); // On arrête tout.
+        die(); 
     }
 }
 
@@ -60,7 +56,7 @@ function majStats(){
     }
     catch (PDOException $e) {
         echo utf8_encode("Echec de select : " . $e->getMessage() . "\n");
-        die(); // On arrête tout.
+        die(); 
     }
 }
 

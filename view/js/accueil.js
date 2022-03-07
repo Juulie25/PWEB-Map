@@ -44,5 +44,4 @@ function getCountryAll() {
         }
     });
     return randomElement
-    
 }

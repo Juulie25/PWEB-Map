@@ -1,0 +1,22 @@
+#connect {
+    text-align: center;
+}
+
+h1 {
+    text-decoration: underline;
+    margin-bottom: 2%;
+}
+
+.label {
+    margin: 1% 0;
+}
+
+#submit {
+    background-color: #007BFF;
+    border-radius: 10px;
+    border: 1px  #000000;
+    color: #eeeeee;
+    text-align: center;
+    padding: 1% 2%;
+    margin: 2%;
+}
