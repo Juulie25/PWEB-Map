@@ -36,6 +36,22 @@ function onMapClick(e) {
                 if (answer == randomElement)  {
                     
                     score++;
+                    let number = document.getElementById("scc")
+                    const para = document.createElement("p");
+                    para.setAttribute('id','scc');
+                    para.style.textAlign= "center"; 
+                    para.innerText = score;
+                    console.log(number)
+
+                    if (number != undefined) {
+                        let score = document.getElementById("score")
+                        score.removeChild(number);
+                    }
+                    
+                    const element = document.getElementById("score");
+                    
+                    element.appendChild(para);
+
                     nextCountry();
                     console.log(score)
                 } else {

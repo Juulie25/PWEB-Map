@@ -5,6 +5,9 @@
     </head>
     <body onload="init()">
         <?php include_once "./view/navbar.tpl" ?>
+        <div id="score" style="margin:15">
+            
+        </div>
         <div id="mapDiv"></div>
         <div id="play">
             <p id="ques"></p>
