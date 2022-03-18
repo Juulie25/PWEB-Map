@@ -6,15 +6,31 @@ var popup = L.popup();
 let answer;
 let score;
 let playedCoutry;
+let life;
 
 function init(){
     map = L.map('mapDiv').setView([42.607752 , -13.542906],2);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{ maxZoom: 15 }).addTo(map);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{ maxZoom: 15, noWrap: true }).addTo(map);
     map.doubleClickZoom.disable();
-    let doc =  document.getElementById("nvlPartie");
-    doc.addEventListener("click", btnPlay);
+    const doc =  document.getElementById("nvlPartie");
+    doc.innerText = "Commencer une nouvelle partie"
+    doc.addEventListener('click', btnPlay);
     score = 0;
+    life = 3;
     playedCoutry = ['aa', 'bb'];
+    doc.addEventListener('click', nextBtn);
+
+}
+
+function nextBtn() {
+    document.getElementById("play").innerHTML+= "<button type=\"button\" class=\"btn btn-info\" id=\"passe\">Next</button>"
+    document.getElementById("passe").addEventListener("click", function(){
+        nextCountry(true);
+    }, false);
+    console.log("----------init--------------")
+    console.log(document.getElementById("passe"))
+    document.getElementById("nvlPartie").addEventListener("click", restart)
+    //doc.removeEventListener('click', nextBtn);
 }
 
 function onMapClick(e) {
@@ -33,48 +49,96 @@ function onMapClick(e) {
                 //récupérer les coordonnées (lati, longi) du pays dans les données json provenant du serveur
                 
                 answer = data.address.country.trim().toUpperCase();
-                if (answer == randomElement)  {
-                    
-                    score++;
-                    let number = document.getElementById("scc")
-                    const para = document.createElement("p");
-                    para.setAttribute('id','scc');
-                    para.style.textAlign= "center"; 
-                    para.innerText = score;
-                    console.log(number)
-
-                    if (number != undefined) {
-                        let score = document.getElementById("score")
-                        score.removeChild(number);
-                    }
-                    
-                    const element = document.getElementById("score");
-                    
-                    element.appendChild(para);
-
-                    nextCountry();
+                let success;
+                if (answer == randomElement || answer.includes(randomElement) || randomElement.includes(answer))  {
+                    success = true;
+                    setScore(success)
+                    nextCountry(false);
                     console.log(score)
+                    
                 } else {
-                    console.log("Essaie encore")
-                    console.log(answer)
-                    console.log(randomElement)
+                    success = false;
+                   setScore(success);
                 }
             }
         });    
 }
 
+function setScore(success) {
 
+    if (success) {
+        score++;
+        life = 3;
+    } else {
+        mistake(); 
+    }
 
-function btnPlay() {
-    inGame = true
-    document.getElementById("nvlPartie").innerText = "Recommencer une partie"
-    nextCountry();
+    console.log(answer)
+    console.log(randomElement)
+    let number = document.getElementById("scc")
+    const para = document.createElement("p");
+    para.setAttribute('id','scc');
+    para.style.textAlign= "center"; 
+    para.innerText = "score: " + score + "    vie restante: " + life;
 
-    map.on('click', onMapClick);
-    //console.log(listCountry)
+    if (number != undefined) {
+        let score = document.getElementById("score")
+        score.removeChild(number);
+    }
+    
+    const element = document.getElementById("score");
+    
+    element.appendChild(para);
+    
 }
 
-function nextCountry() {
+function restart() {
+    
+    
+
+    score = -1;
+    setScore(true);
+    let number = document.getElementById("scc");
+    document.getElementById("ques").innerText = "";
+
+    if (number != null) {
+        number.remove()
+    }
+    nextCountry(false);
+    playedCoutry = ['aa', 'bb']
+}
+
+function btnPlay() {
+    
+    document.getElementById("nvlPartie").innerText = "Recommencer une partie"
+    nextCountry(false);
+    console.log("azertyuiop")
+    map.on('click', onMapClick);
+    document.getElementById("nvlPartie").removeEventListener('click', btnPlay)
+    
+    console.log(listCountry)
+    
+    
+}
+
+function mistake() {
+    
+    if (life <= 0) {
+        console.log("looooose");
+        
+        restart();
+    } else {
+        life--
+    }
+}
+
+function nextCountry(passed) {
+    
+    if (passed) {
+        console.log('next')
+        setScore(false)
+    }
+    
     do {
         $.ajax({
             type: "GET",
@@ -86,9 +150,10 @@ function nextCountry() {
             }
         });
     } while (playedCoutry.includes(randomElement))
+
     playedCoutry.push(randomElement);
     document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte " + randomElement;
     randomElement = randomElement.toUpperCase()
-    
+    console.log('al')
     
 }
