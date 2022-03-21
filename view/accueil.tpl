@@ -2,6 +2,7 @@
 <html lang="fr">
     <head>
         <?php include_once "./view/header.tpl" ?>
+        <link rel="stylesheet" href="./view/css/popup.css">
     </head>
     <body onload="init()">
         <?php include_once "./view/navbar.tpl" ?>
@@ -21,8 +22,6 @@
             </div>
             <div id="score" style="margin:15"></div>
         </div>
-        
-        
 
         <div id="mapDiv"></div>
         <div id="play">
