@@ -25,23 +25,7 @@ function init(){
     playedCoutry = ['aa', 'bb'];
     doc.addEventListener('click', nextBtn); 
     selecteCountries();
-    
-    /*let tab = equipements.features[15].geometry.coordinates  ------
-    tab.forEach(function(e) { e.forEach( function(f) { 
-        var polygonPoint = f; 
-        var poly = L.polygon(polygonPoint).addTo(map);
-        console.log(poly);
-    }) });
 
-   var polygonPoints = [
-        [37.786617, -122.404654],
-        [37.797843, -122.407057],
-        [37.798962, -122.398260],
-        [37.794299, -122.395234]];
-      var poly = L.polygon(equipements.features[15].geometry.coordinates).addTo(map); -------
-*/  
-      
-      //equipements.features[15].geometry.coordinates
 }
 
 function nextBtn() {
