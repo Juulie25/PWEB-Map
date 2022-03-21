@@ -9,6 +9,10 @@ let playedCoutry;
 let life;
 let border;
 
+let countriesList_EU = "http://localhost/PWEB-Map/map/countries-EU.json"
+let countriesList_Monde = "http://localhost/PWEB-Map/map/countries-FR.json";
+let choosenList = countriesList_Monde;
+
 function init(){
     map = L.map('mapDiv').setView([42.607752 , -13.542906],2);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',{ maxZoom: 15, noWrap: true }).addTo(map);
@@ -20,7 +24,8 @@ function init(){
     life = 3;
     playedCoutry = ['aa', 'bb'];
     doc.addEventListener('click', nextBtn); 
-    selecteCountries(doc);
+    selecteCountries();
+    
     /*let tab = equipements.features[15].geometry.coordinates  ------
     tab.forEach(function(e) { e.forEach( function(f) { 
         var polygonPoint = f; 
@@ -49,8 +54,30 @@ function nextBtn() {
     //doc.removeEventListener('click', nextBtn);
 }
 
-function selecteCountries(doc) {
-    doc.getElementById("choix")
+function selecteCountries() {
+    //doc.getElementById("choix").addEventListener("")
+
+    const radios = document.querySelectorAll('input[name="drone"]')
+    
+    for (const radio of radios) {
+        radio.onclick = (e) => {
+            
+            switch(radio.value) {
+                case 'monde':
+                    choosenList = countriesList_Monde;
+                    break;
+                case 'europe':
+                    choosenList = countriesList_EU;
+                    console.log('eu')
+                    break;
+                default:
+                    choosenList = countriesList_Monde;
+            }           
+
+            restart()
+
+        }
+      }
 }
 
 function onMapClick(e) {
@@ -159,7 +186,7 @@ function nextCountry(passed) {
     do {
         $.ajax({
             type: "GET",
-            url: "http://localhost/PWEB-Map/map/countries-FR.json",
+            url: choosenList,
             async: false,
             success : function(result) {
                 listCountry = result
