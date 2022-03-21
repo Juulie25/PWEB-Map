@@ -20,7 +20,7 @@ function init(){
     life = 3;
     playedCoutry = ['aa', 'bb'];
     doc.addEventListener('click', nextBtn); 
-
+    selecteCountries(doc);
     /*let tab = equipements.features[15].geometry.coordinates  ------
     tab.forEach(function(e) { e.forEach( function(f) { 
         var polygonPoint = f; 
@@ -33,8 +33,8 @@ function init(){
         [37.797843, -122.407057],
         [37.798962, -122.398260],
         [37.794299, -122.395234]];
-      var poly = L.polygon(equipements.features[15].geometry.coordinates).addTo(map);
-*/  -------
+      var poly = L.polygon(equipements.features[15].geometry.coordinates).addTo(map); -------
+*/  
       
       //equipements.features[15].geometry.coordinates
 }
@@ -47,6 +47,10 @@ function nextBtn() {
     
     document.getElementById("nvlPartie").addEventListener("click", restart)
     //doc.removeEventListener('click', nextBtn);
+}
+
+function selecteCountries(doc) {
+    doc.getElementById("choix")
 }
 
 function onMapClick(e) {
