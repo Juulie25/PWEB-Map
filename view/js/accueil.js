@@ -7,6 +7,7 @@ let answer;
 let score;
 let playedCoutry;
 let life;
+let border;
 
 function init(){
     map = L.map('mapDiv').setView([42.607752 , -13.542906],2);
@@ -18,8 +19,24 @@ function init(){
     score = 0;
     life = 3;
     playedCoutry = ['aa', 'bb'];
-    doc.addEventListener('click', nextBtn);
+    doc.addEventListener('click', nextBtn); 
 
+    /*let tab = equipements.features[15].geometry.coordinates  ------
+    tab.forEach(function(e) { e.forEach( function(f) { 
+        var polygonPoint = f; 
+        var poly = L.polygon(polygonPoint).addTo(map);
+        console.log(poly);
+    }) });
+
+   var polygonPoints = [
+        [37.786617, -122.404654],
+        [37.797843, -122.407057],
+        [37.798962, -122.398260],
+        [37.794299, -122.395234]];
+      var poly = L.polygon(equipements.features[15].geometry.coordinates).addTo(map);
+*/  -------
+      
+      //equipements.features[15].geometry.coordinates
 }
 
 function nextBtn() {
@@ -27,8 +44,7 @@ function nextBtn() {
     document.getElementById("passe").addEventListener("click", function(){
         nextCountry(true);
     }, false);
-    console.log("----------init--------------")
-    console.log(document.getElementById("passe"))
+    
     document.getElementById("nvlPartie").addEventListener("click", restart)
     //doc.removeEventListener('click', nextBtn);
 }
@@ -112,11 +128,11 @@ function btnPlay() {
     
     document.getElementById("nvlPartie").innerText = "Recommencer une partie"
     nextCountry(false);
-    console.log("azertyuiop")
+
     map.on('click', onMapClick);
     document.getElementById("nvlPartie").removeEventListener('click', btnPlay)
     
-    console.log(listCountry)
+
     
     
 }
@@ -124,8 +140,6 @@ function btnPlay() {
 function mistake() {
     
     if (life <= 0) {
-        console.log("looooose");
-        
         restart();
     } else {
         life--
@@ -135,7 +149,6 @@ function mistake() {
 function nextCountry(passed) {
     
     if (passed) {
-        console.log('next')
         setScore(false)
     }
     
@@ -150,10 +163,25 @@ function nextCountry(passed) {
             }
         });
     } while (playedCoutry.includes(randomElement))
+    
+    /*$.ajax({
+        type: "GET",
+        url: "http://localhost/PWEB-Map/map/countries.geojson",
+        async: false,
+        success : function(result) {
+            border = result
+            polCollection = L.polygon(border)
+            console.log(polCollection)
+
+            for (layer of polCollection) {
+                bounds = layer.getBounds()
+            }
+
+        }
+    });*/
 
     playedCoutry.push(randomElement);
     document.getElementById("ques").innerText = "Essayer de placer le pays suivant sur la carte " + randomElement;
     randomElement = randomElement.toUpperCase()
-    console.log('al')
     
 }
