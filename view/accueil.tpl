@@ -29,7 +29,16 @@
         <div id="mapDiv"></div>
         <div id="play">
             <p id="ques"></p>
-            <button type="button" class="btn btn-info" id="nvlPartie">Commencer une nouvelle partie</button>
+            <button type="button" class="btn btn-info" id="nvlPartie" data-popup-ref="fin">Commencer une nouvelle partie</button>
+        </div>
+
+        <div class="popup" data-popup-id="fin">
+            <div class="popup-content">
+                 <h2>Partie finie</h2>
+                 <p>Voici votre score final : </p>
+                 <!-- score a ajouter-->
+                 <button type="button" class="btn cancel" data-dismiss-popup>Fermer</button>
+            </div>
         </div>
     </body>
 </html>
