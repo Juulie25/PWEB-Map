@@ -2,11 +2,12 @@
 <html lang="fr">
     <head>
         <?php include_once "./view/header.tpl" ?>
+        <link rel="stylesheet" href="./view/css/popup.css">
     </head>
     <body onload="init()">
         <?php include_once "./view/navbar.tpl" ?>
         <br/>
-        
+
         <div id="choix" style="text-align: center;">
             <h2>Choix du mode de jeu</h2> 
             <p>Vous pouvez choisir un mode de jeu : celui-ci définit une zone géographique dans laquelle vous devez trouver les pays.<br/>
@@ -21,8 +22,6 @@
             </div>
             <div id="score" style="margin:15"></div>
         </div>
-        
-        
 
         <div id="mapDiv"></div>
         <div id="play">
@@ -34,8 +33,14 @@
             <div class="popup-content">
                  <h2>Partie finie</h2>
                  <p>Voici votre score final : </p>
-                 <!-- score a ajouter-->
-                 <button type="button" class="btn cancel" data-dismiss-popup>Fermer</button>
+                 <?php
+                    $profil = $_SESSION['profil'];
+                    if (isset($_SESSION['profil'])) {
+                        $_SESSION['profil']['score'] = $profil[0]['score'];
+                        echo $profil[0]['score']; 
+                    }
+                ?>
+                 <a href="index.php?controle=leaderboard&action=getScore" type="button" class="btn cancel" data-dismiss-popup>Fermer</a>
             </div>
         </div>
     </body>

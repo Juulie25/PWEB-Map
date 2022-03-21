@@ -18,7 +18,8 @@ function getStats(){
 
 function getMeilleurScore(){
     require("./model/connectBD.php");
-    $sql = "SELECT meilleurScore, nbParties FROM stats , joueur WHERE stats.IdJoueur = joueur.IdJoueur AND joueur.nomJoueur ="+ $_SESSION['profil']['nomJoueur'] +";";
+    $profil = $_SESSION['profil'];
+    $sql = "SELECT meilleurScore, nbParties FROM stats , joueur WHERE stats.IdJoueur = joueur.IdJoueur AND joueur.nomJoueur = '". $profil[0]['nomJoueur'] . "';";
 
     try{
         $commande = $pdo->prepare($sql);
@@ -28,25 +29,24 @@ function getMeilleurScore(){
         }
     }
     catch (PDOException $e) {
-        echo utf8_encode("Echec de select : " . $e->getMessage() . "\n");
+        echo utf8_encode("Erreur getMeilleurScore() : " . $e->getMessage() . "\n");
         die(); 
     }
 }
 
-//la fonction est appelée quand le joueur perd/fini sa partie 
 function majStats($score){
     require("./model/connectBD.php");
-
+    $profil = $_SESSION['profil'];
     $res = getMeilleurScore();
-    $meilleurScore = $res[0];
-    $nbParties = $res[1];
+    $meilleurScore = $res[0]['meilleurScore'];
+    $nbParties = $res[0]['nbParties'];
 
     $nbParties += 1; 
 
-    if($score > $meilleurScore){
-        $sql = "INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES ("+$_SESSION['profil']['IdJoueur']+", "+$score+", "+$nbParties+");";
+    if($score < $meilleurScore){
+        $sql = "UPDATE stats SET nbParties =  " . $nbParties . " WHERE IdJoueur = " . $profil[0]['IdJoueur'] . ";";
     }else{
-        $sql = "INSERT INTO stats(IdJoueur, meilleurScore, nbParties) VALUES ("+$_SESSION['profil']['IdJoueur']+", "+$meilleurScore+", "+$nbParties+");";
+        $sql = "UPDATE stats SET meilleurScore = " . $meilleurScore . " AND nbParties =  " . $nbParties . " WHERE IdJoueur = " . $profil[0]['IdJoueur'] . ";";
     }
 
     try{
@@ -54,7 +54,7 @@ function majStats($score){
         $bool = $commande->execute();
     }
     catch (PDOException $e) {
-        echo utf8_encode("Echec de select : " . $e->getMessage() . "\n");
+        echo utf8_encode("Erreur majStats(): " . $e->getMessage() . "\n");
         die(); 
     }
 }

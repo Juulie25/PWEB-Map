@@ -27,22 +27,36 @@ function verif_LoginBD($pseudo,$mdp,&$profil) {
     }
     else {
         $profil = $resultat;
-        //var_dump($profil); die();
+        $profil[0]['score'] = 0; 
+        $_SESSION['profil'] = $profil; 
+        $_SESSION['profil']['nomJoueur'] = $profil[0]['nomJoueur'];
+        //var_dump($_SESSION['profil']['nomJoueur']); die();
         return true;
     }
 }
 
-function inscription($nvSpeudo, $nvMdp){
+function inscription($nvPseudo, $nvMdp){
     require("./model/connectBD.php");
-    $sql = "INSERT INTO joueur(nomJoueur, MotDePasse) VALUES(:pseudo, :mdp)";
-     try {
+    $sql = "INSERT INTO joueur(nomJoueur, MotDePasse) VALUES (:pseudo, :mdp)";
+    $sqlID = "SELECT IdJoueur FROM joueur WHERE nomJoueur = " . $nvPseudo . ";";
+    $sqlINSERT = "INSERT INTO stats (IdJoueur, meilleurScore, nbParties) VALUES (:id ,0 ,0);";
+
+    try {
         $commande = $pdo->prepare($sql);
-        $commande->bindParam(':pseudo', $nvSpeudo);
+        $commande->bindParam(':pseudo', $nvPseudo);
         $commande->bindParam(':mdp', $nvMdp);
         $bool = $commande->execute();
+
+        $commandeID = $pdo->prepare($sqlID);
+        $id = $commandeID->execute();
+
+        $commandeINSERT = $pdo->prepare($sqlINSERT);
+        $commandeINSERT->bindParam(':id', $id);
+        $bool = $commandeINSERT->execute();
+
     } catch (PDOException $e){
-            echo utf8_encode("Echec insert into : " . $e->getMessage() . "\n") ;
-            die();
+        echo utf8_encode("Echec insert into : " . $e->getMessage() . "\n") ;
+        die();
     }
 }
 

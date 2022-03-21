@@ -120,6 +120,8 @@ function setScore(success) {
         mistake(); 
     }
 
+    $.post("./controller/leaderboard.php", {score:score});
+
     console.log(answer)
     console.log(randomElement)
     let number = document.getElementById("scc")
