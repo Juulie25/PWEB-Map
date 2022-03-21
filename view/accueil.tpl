@@ -5,25 +5,26 @@
     </head>
     <body onload="init()">
         <?php include_once "./view/navbar.tpl" ?>
-
-        <div id="choix" style="margin:15, justify-content: center ">
+        <br/>
+        <div id="choix" style="text-align: center;">
+            <h2>Choix du mode de jeu</h2> 
+            <p>Vous pouvez choisir un mode de jeu : celui-ci définit une zone géographique dans laquelle vous devez trouver les pays.<br/>
+            Par défaut, le mode de jeu est le mode Monde. </p>
             <div>
                 <input type="radio" id="huey" name="drone" value="huey" checked>
-                <label for="huey">Huey</label>
+                <label for="huey">Mode Monde</label>
             </div>
-
             <div>
                 <input type="radio" id="dewey" name="drone" value="dewey">
-                <label for="dewey">Dewey</label>
+                <label for="dewey">Mode Europe</label>
             </div>
-
             <div>
                 <input type="radio" id="louie" name="drone" value="louie">
                 <label for="louie">Louie</label>
             </div>
-
-            <div id="score" style="margin:15">
-            
+            <div id="score">
+                <p>score</p>
+            </div>
         </div>
         <div id="mapDiv"></div>
         <div id="play">
